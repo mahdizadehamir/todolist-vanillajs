@@ -5,3 +5,6 @@ function addTask (e){
     txtInput = document.getElementById("text").value; 
     console.log(e.target.value)
 }
+function nothingtoDo (){
+    
+}
