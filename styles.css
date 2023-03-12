@@ -173,3 +173,12 @@ form {
 .input-container:focus-within {
   outline: blue solid 1px;
 }
+.task-holder {
+  margin-top: 4rem;
+}
+#task-box{
+  display: block;
+  background-color: white;
+  margin-bottom: 5px;
+  padding: 20px;
+}
