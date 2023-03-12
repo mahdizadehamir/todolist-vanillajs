@@ -177,8 +177,12 @@ form {
   margin-top: 4rem;
 }
 #task-box{
-  display: block;
+  display: flex;
+  flex-direction: row;
   background-color: white;
   margin-bottom: 5px;
   padding: 20px;
+}
+#task-box div {
+margin-left: 20px;
 }

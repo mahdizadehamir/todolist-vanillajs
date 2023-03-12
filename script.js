@@ -13,21 +13,32 @@ function addTask(event) {
     tasks.push(textInput.value);
     displayTasks(textInput.value);
     localStorage.setItem("todoList", JSON.stringify(tasks));
-    textInput.value = ""
+    textInput.value = "";
   }
 }
 //showing Tasks
 function displayTasks(inputValue) {
   if (tasks != null || []) {
-    const newEl = document.createElement("p");
-    newEl.setAttribute("id","task-box")
-    newEl.textContent = inputValue;
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete";
+    const completeBtn = document.createElement("button");
+    completeBtn.textContent = "complete";
+    const newEl = document.createElement("div");
+    const btnHolder = document.createElement("div");
+    const paragraph = document.createElement("p");
+    newEl.setAttribute("id", "task-box");
+    paragraph.textContent = inputValue;
+    btnHolder.appendChild(deleteBtn);
+    btnHolder.appendChild(completeBtn);
+    newEl.appendChild(paragraph);
+    newEl.appendChild(btnHolder);
     taskHolder.appendChild(newEl);
   }
 }
-function initialShowingTasks(){
-  for (const element of tasks){
-    displayTasks(element)
+//showing tasks at startUP
+function initialShowingTasks() {
+  for (const element of tasks) {
+    displayTasks(element);
   }
 }
-initialShowingTasks()
+initialShowingTasks();
