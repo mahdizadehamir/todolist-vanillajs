@@ -16,6 +16,14 @@ function addTask(event) {
     textInput.value = "";
   }
 }
+//deleteButton Function
+function deletefunc(event){
+  console.log(event)
+}
+//completebutton function
+function completefunc(){
+  
+}
 //showing Tasks
 function displayTasks(inputValue) {
   if (tasks != null || []) {
@@ -28,6 +36,8 @@ function displayTasks(inputValue) {
     const paragraph = document.createElement("p");
     newEl.setAttribute("id", "task-box");
     paragraph.textContent = inputValue;
+    deleteBtn.addEventListener("click",deletefunc);
+    completeBtn.addEventListener('click',completefunc);
     btnHolder.appendChild(deleteBtn);
     btnHolder.appendChild(completeBtn);
     newEl.appendChild(paragraph);
