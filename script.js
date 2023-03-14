@@ -3,10 +3,10 @@ const tasks = JSON.parse(localStorage.getItem("todoList")) || [];
 const sumbitBtn = document.getElementById("submit");
 sumbitBtn.addEventListener("click", addTask);
 const taskHolder = document.querySelector(".task-holder");
+const textInput = document.getElementById("text");
 //defining functions
 function addTask(event) {
   event.preventDefault();
-  const textInput = document.getElementById("text");
   if (textInput.value === "" || textInput.value === null) {
     alert("empty task not allowed");
   } else {
@@ -18,7 +18,12 @@ function addTask(event) {
 }
 //deleteButton Function
 function deletefunc(event){
-  console.log(event)
+  console.log(event.target.parentElement.previousSibling.innerText)
+  tasks.splice(tasks.indexOf(event.target.parentElement.previousSibling.innerText),1)
+  console.log(tasks)
+  localStorage.setItem("todoList", JSON.stringify(tasks));
+  taskHolder.innerHTML = "";
+  initialShowingTasks()
 }
 //completebutton function
 function completefunc(){
