@@ -1,5 +1,6 @@
 //defining items
 const tasks = JSON.parse(localStorage.getItem("todoList")) || [];
+const completedTask = JSON.parse(localStorage.getItem("completed")) || [];
 const sumbitBtn = document.getElementById("submit");
 sumbitBtn.addEventListener("click", addTask);
 const taskHolder = document.querySelector(".task-holder");
@@ -17,17 +18,29 @@ function addTask(event) {
   }
 }
 //deleteButton Function
-function deletefunc(event){
-  console.log(event.target.parentElement.previousSibling.innerText)
-  tasks.splice(tasks.indexOf(event.target.parentElement.previousSibling.innerText),1)
-  console.log(tasks)
+function deletefunc(event) {
+  console.log(event.target.parentElement.previousSibling.innerText);
+  tasks.splice(
+    tasks.indexOf(event.target.parentElement.previousSibling.innerText),
+    1
+  );
+  completedTask.splice(
+    completedTask.indexOf(event.target.parentElement.previousSibling.innerText),
+    1
+  );
+  console.log(tasks,completedTask);
   localStorage.setItem("todoList", JSON.stringify(tasks));
   taskHolder.innerHTML = "";
-  initialShowingTasks()
+  initialShowingTasks();
 }
 //completebutton function
-function completefunc(){
-  
+function completefunc(event) {
+  console.log(event.target.disabled);
+  event.target.disabled = true;
+  event.target.parentElement.previousSibling.innerHTML = `<del>${event.target.parentElement.previousSibling.innerText}</del>`;
+  completedTask.push(event.target.parentElement.previousSibling.innerText);
+  localStorage.setItem("completedTask",JSON.stringify(completedTask))
+  console.log(completedTask)
 }
 //showing Tasks
 function displayTasks(inputValue) {
@@ -41,8 +54,8 @@ function displayTasks(inputValue) {
     const paragraph = document.createElement("p");
     newEl.setAttribute("id", "task-box");
     paragraph.textContent = inputValue;
-    deleteBtn.addEventListener("click",deletefunc);
-    completeBtn.addEventListener('click',completefunc);
+    deleteBtn.addEventListener("click", deletefunc);
+    completeBtn.addEventListener("click", completefunc);
     btnHolder.appendChild(deleteBtn);
     btnHolder.appendChild(completeBtn);
     newEl.appendChild(paragraph);
