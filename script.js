@@ -6,37 +6,30 @@ sumbitBtn.addEventListener("click", addTask);
 const taskHolder = document.querySelector(".task-holder");
 const textInput = document.getElementById("text");
 const selectButton = document.getElementById("select");
-selectButton.addEventListener("click",changingValue);
-
-
-
+selectButton.addEventListener("click", changingValue);
 
 //defining functions
-function changingValue(event){
-  if(event.target.value === "completed"){
-      for (element of completedTask){
-        taskHolder.innerHTML = "";
-        displayTasks(element)
-      }
-  }else if(event.target.value === "uncompleted"){
-    const filteredValues = tasks.filter(function(value){
-      if(completedTask.includes(value) === false){
-        return value
-      }
-    })
-    for (element of filteredValues){
+function changingValue(event) {
+  if (event.target.value === "completed") {
+    for (element of completedTask) {
       taskHolder.innerHTML = "";
-      displayTasks(element)
+      displayTasks(element);
     }
-  }
-  else {
+  } else if (event.target.value === "uncompleted") {
+    const filteredValues = tasks.filter(function (value) {
+      if (completedTask.includes(value) === false) {
+        return value;
+      }
+    });
+    for (element of filteredValues) {
+      taskHolder.innerHTML = "";
+      displayTasks(element);
+    }
+  } else {
     taskHolder.innerHTML = "";
     initialShowingTasks();
-    }
+  }
 }
-
-
-
 
 function addTask(event) {
   event.preventDefault();
@@ -56,12 +49,19 @@ function deletefunc(event) {
     tasks.indexOf(event.target.parentElement.previousSibling.innerText),
     1
   );
-  completedTask.splice(
-    completedTask.indexOf(event.target.parentElement.previousSibling.innerText),
-    1
-  );
+  if (
+    completedTask.includes(event.target.parentElement.previousSibling.innerText)
+  ) {
+    completedTask.splice(
+      completedTask.indexOf(
+        event.target.parentElement.previousSibling.innerText
+      ),
+      1
+    );
+    localStorage.setItem("completedTask", JSON.stringify(completedTask));
+  }
+
   localStorage.setItem("todoList", JSON.stringify(tasks));
-  localStorage.setItem("completedTask",JSON.stringify(completedTask));
   taskHolder.innerHTML = "";
   initialShowingTasks();
 }
@@ -83,9 +83,11 @@ function displayTasks(inputValue) {
     const newEl = document.createElement("div");
     const btnHolder = document.createElement("div");
     const paragraph = document.createElement("p");
+    const deletedText = document.createElement("del");
     newEl.setAttribute("id", "task-box");
     if (completedTask.includes(inputValue)) {
-      paragraph.innerHTML = `<del>${inputValue}</del>`;
+      deletedText.textContent = inputValue;
+      paragraph.appendChild(deletedText);
     } else {
       paragraph.textContent = inputValue;
     }
