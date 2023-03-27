@@ -11,8 +11,8 @@ selectButton.addEventListener("click", changingValue);
 //defining functions
 function changingValue(event) {
   if (event.target.value === "completed") {
+    taskHolder.innerHTML = "";
     for (element of completedTask) {
-      taskHolder.innerHTML = "";
       displayTasks(element);
     }
   } else if (event.target.value === "uncompleted") {
@@ -21,8 +21,8 @@ function changingValue(event) {
         return value;
       }
     });
+    taskHolder.innerHTML = "";
     for (element of filteredValues) {
-      taskHolder.innerHTML = "";
       displayTasks(element);
     }
   } else {
@@ -86,6 +86,7 @@ function displayTasks(inputValue) {
     const deletedText = document.createElement("del");
     newEl.setAttribute("id", "task-box");
     if (completedTask.includes(inputValue)) {
+      completeBtn.disabled = true;
       deletedText.textContent = inputValue;
       paragraph.appendChild(deletedText);
     } else {
